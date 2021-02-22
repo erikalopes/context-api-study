@@ -1,6 +1,7 @@
-import React from 'react'
+import * as React from 'react'
 import { Text } from 'react-native'
 
-export default (props) => {
+const ListUsers = (props) => {
   return <Text>List Users</Text>
 }
+export default ListUsers

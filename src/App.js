@@ -1,15 +1,18 @@
-import React from 'react'
+import * as React from 'react'
+import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { StyledButton } from './components'
 import UserList from './screens/Users/List'
 import UserForm from './screens/Users/Form'
+import { StyledButton } from './components'
 
 const Stack = createStackNavigator()
 
-export default (props) => {
+const App = () => {
   return (
     <NavigationContainer>
+      <StatusBar translucent backgroundColor='transparent' />
+
       <Stack.Navigator
         initialRouteName='UserList'
         screenOptions={screenOptions}
@@ -17,8 +20,13 @@ export default (props) => {
         <Stack.Screen
           name='UserList'
           component={UserList}
-          options={() => {
-            return { title: 'Lista', headerRight: () => <StyledButton /> }
+          options={({ navigation }) => {
+            return {
+              title: 'Lista',
+              headerRight: () => (
+                <StyledButton onPress={() => navigation.navigate('UserForm')} />
+              ),
+            }
           }}
         />
         <Stack.Screen
@@ -37,3 +45,5 @@ const screenOptions = {
   },
   headerTintColor: '#fff',
 }
+
+export default App

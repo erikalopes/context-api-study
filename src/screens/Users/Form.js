@@ -1,6 +1,8 @@
-import React from 'react'
+import * as React from 'react'
 import { Text } from 'react-native'
 
-export default (props) => {
+const FormUser = (props) => {
   return <Text>Form Users</Text>
 }
+
+export default FormUser
