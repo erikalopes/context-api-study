@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useContext } from 'react'
 import { Alert, FlatList, Text } from 'react-native'
 import { ListItem, Avatar, Button } from 'react-native-elements'
 import {
@@ -7,8 +7,11 @@ import {
   GroupButtonActions,
 } from '../../components'
 import { users } from '../../data/users'
+import UserContext from '../../services/contexts/User'
 
 const ListUsers = (props) => {
+  const { state } = useContext(UserContext)
+
   function confirmDelete(user) {
     Alert.alert('Exclusão', 'Deseja excluir o usuário?', [
       {
@@ -48,7 +51,7 @@ const ListUsers = (props) => {
           <ListItem.Title>{item.name}</ListItem.Title>
           <ListItem.Subtitle>{item.email}</ListItem.Subtitle>
         </ListItem.Content>
-        <ListItem.Content>{getActions(item.id)}</ListItem.Content>
+        <ListItem.Content>{getActions(item)}</ListItem.Content>
       </ListItem>
     )
   }
@@ -56,7 +59,7 @@ const ListUsers = (props) => {
   return (
     <>
       <FlatList
-        data={users}
+        data={state}
         keyExtractor={(user) => user.id.toString()}
         renderItem={getUsers}
       />
