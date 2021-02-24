@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button } from 'react-native'
 import { Input } from 'react-native-elements'
 import {
@@ -7,10 +7,11 @@ import {
   IconInputName,
   ContainerForm,
 } from '../../components'
+import UserContext from '../../services/contexts/User'
 
 const FormUser = ({ route, navigation }) => {
   const [user, setUser] = useState(route.params ? route.params : {})
-
+  const { dispatch } = useContext(UserContext)
   return (
     <ContainerForm>
       <Input
@@ -34,7 +35,16 @@ const FormUser = ({ route, navigation }) => {
         value={user.avatar}
         leftIcon={<IconInputAvatar />}
       />
-      <Button title='Salvar' onPress={() => navigation.goBack()} />
+      <Button
+        title='Salvar'
+        onPress={() => {
+          dispatch({
+            type: !!user.id ? 'UPDATE_USER' : 'CREATE_USER',
+            payload: user,
+          })
+          navigation.goBack()
+        }}
+      />
     </ContainerForm>
   )
 }
