@@ -5,6 +5,12 @@ const UserContext = createContext({})
 const initialState = { users }
 export const UserProvider = (props) => {
   function reducer(state, action) {
+    if (action.type === 'DELETE_USER') {
+      const user = action.payload
+      return {
+        users: state.users.filter((clickedUser) => clickedUser.id !== user.id),
+      }
+    }
     return state
   }
 
