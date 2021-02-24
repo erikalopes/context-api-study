@@ -10,14 +10,16 @@ import { users } from '../../data/users'
 import UserContext from '../../services/contexts/User'
 
 const ListUsers = (props) => {
-  const { state } = useContext(UserContext)
-
+  const { state, dispatch } = useContext(UserContext)
   function confirmDelete(user) {
     Alert.alert('Exclusão', 'Deseja excluir o usuário?', [
       {
         text: 'Sim',
         onPress() {
-          console.warn('delete')
+          dispatch({
+            type: 'DELETE_USER',
+            payload: user,
+          })
         },
       },
       {
@@ -59,7 +61,7 @@ const ListUsers = (props) => {
   return (
     <>
       <FlatList
-        data={state}
+        data={state.users}
         keyExtractor={(user) => user.id.toString()}
         renderItem={getUsers}
       />
